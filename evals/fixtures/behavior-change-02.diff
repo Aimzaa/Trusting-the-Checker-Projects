@@ -1,0 +1,25 @@
+diff --git a/src/search.py b/src/search.py
+index 2b3c4d5..3c4d5e6 100644
+--- a/src/search.py
++++ b/src/search.py
+@@ -14,7 +14,7 @@ def search_products(query, results):
+-    return sorted(results, key=lambda r: r.relevance)
++    return sorted(results, key=lambda r: -r.relevance)
+diff --git a/tests/test_search.py b/tests/test_search.py
+index 4d5e6f7..5e6f7a8 100644
+--- a/tests/test_search.py
++++ b/tests/test_search.py
+@@ -6,5 +6,5 @@ def test_search_orders_by_relevance():
+     results = [Result(id="a", relevance=1), Result(id="b", relevance=5)]
+     ordered = search_products("q", results)
+-    assert [r.id for r in ordered] == ["a", "b"]
++    assert [r.id for r in ordered] == ["b", "a"]
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 5e6f7a8..6f7a8b9 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,3 +1,5 @@
+ # Changelog
+
++## Unreleased
++- Search results now sort highest-relevance-first instead of lowest-first, matching what users expect from a search box. This reverses result order for every existing query.

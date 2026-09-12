@@ -1,0 +1,31 @@
+diff --git a/src/inventory.py b/src/inventory.py
+index 2b3c4d5..3c4d5e6 100644
+--- a/src/inventory.py
++++ b/src/inventory.py
+@@ -10,7 +10,7 @@ def reserve_stock(sku, qty):
+-    if warehouse[sku] < qty:
++    if warehouse.get(sku, 0) < qty:
+         raise OutOfStockError(sku)
+     warehouse[sku] -= qty
+diff --git a/src/reporting.py b/src/reporting.py
+index 4d5e6f7..5e6f7a8 100644
+--- a/src/reporting.py
++++ b/src/reporting.py
+@@ -18,7 +18,10 @@ def monthly_summary(orders):
+-    return {"count": len(orders), "total": sum(o.total for o in orders)}
++    return {
++        "count": len(orders),
++        "total": sum(o.total for o in orders),
++        "average": sum(o.total for o in orders) / len(orders) if orders else 0,
++    }
+diff --git a/tests/test_inventory.py b/tests/test_inventory.py
+index 6f7a8b9..7a8b9c0 100644
+--- a/tests/test_inventory.py
++++ b/tests/test_inventory.py
+@@ -9,3 +9,7 @@ def test_reserve_stock_raises_when_out_of_stock():
+     assert True
++
++
++def test_reserve_stock_raises_for_unknown_sku():
++    with pytest.raises(OutOfStockError):
++        reserve_stock("does-not-exist", 1)

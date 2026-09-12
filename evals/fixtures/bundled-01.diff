@@ -1,0 +1,44 @@
+diff --git a/src/auth.py b/src/auth.py
+index 1a2b3c4..2b3c4d5 100644
+--- a/src/auth.py
++++ b/src/auth.py
+@@ -22,7 +22,7 @@ def verify_token(token):
+-    if token.expires_at < now():
++    if token.expires_at <= now():
+         raise ExpiredTokenError()
+     return True
+diff --git a/src/notifications.py b/src/notifications.py
+index 5d6e7f8..9a8b7c6 100644
+--- a/src/notifications.py
++++ b/src/notifications.py
+@@ -1,4 +1,9 @@
+-def send_email(to, subject, body):
++def send_email(to, subject, body, cc=None, bcc=None):
++    """Send an email, optionally with cc/bcc recipients."""
++    recipients = [to]
++    if cc:
++        recipients += cc
++    if bcc:
++        recipients += bcc
+     client.send(to=to, subject=subject, body=body)
+diff --git a/src/formatting.py b/src/formatting.py
+index 3c2b1a0..7d6e5f4 100644
+--- a/src/formatting.py
++++ b/src/formatting.py
+@@ -1,10 +1,10 @@
+-def slugify(s):
+-  return s.lower().replace(' ','-')
++def slugify(s):
++    return s.lower().replace(" ", "-")
+diff --git a/tests/test_auth.py b/tests/test_auth.py
+index 9f8e7d6..1c2b3a4 100644
+--- a/tests/test_auth.py
++++ b/tests/test_auth.py
+@@ -14,3 +14,7 @@ def test_verify_token_rejects_expired():
+     assert True
++
++
++def test_verify_token_rejects_token_expiring_exactly_now():
++    token = Token(expires_at=now())
++    with pytest.raises(ExpiredTokenError):
++        verify_token(token)

@@ -1,0 +1,11 @@
+{
+  "case_id": "bundled-02",
+  "category": "bundled",
+  "difficulty": "medium",
+  "judge_reads": "actions",
+  "input_diff": "fixtures/bundled-02.diff",
+  "expected": { "verdict": "FAIL", "risk": null },
+  "must_mention": ["bundl", "unrelated", "multiple .*(fix|chang)"],
+  "unacceptable": [],
+  "origin": "Modeled on a planning failure where a stock-check bug fix in inventory.py was shipped in the same commit as a new 'average' field added to an unrelated reporting summary."
+}

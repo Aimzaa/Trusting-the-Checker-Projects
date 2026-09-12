@@ -1,0 +1,11 @@
+{
+  "case_id": "behavior-change-02",
+  "category": "behavior_change",
+  "difficulty": "medium",
+  "judge_reads": "actions",
+  "input_diff": "fixtures/behavior-change-02.diff",
+  "expected": { "verdict": "PASS", "risk": "high" },
+  "must_mention": ["order", "behavior"],
+  "unacceptable": [],
+  "origin": "Risk-field contract case: a search result sort-order change (add a price tiebreaker) is intentional and covered by a new test, but changes the order callers see. Must PASS, must never be marked low risk."
+}

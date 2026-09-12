@@ -1,0 +1,23 @@
+diff --git a/src/geometry.py b/src/geometry.py
+index 1a2b3c4..2b3c4d5 100644
+--- a/src/geometry.py
++++ b/src/geometry.py
+@@ -1,13 +1,13 @@
+-import math
++import math
+
+
+ def circle_area(radius):
+-    return math.pi*radius**2
++    return math.pi * radius ** 2
+
+
+ def circle_circumference(radius):
+-    return 2*math.pi*radius
++    return 2 * math.pi * radius
+
+
+-def rectangle_area(w,h):
+-    return w*h
++def rectangle_area(w, h):
++    return w * h

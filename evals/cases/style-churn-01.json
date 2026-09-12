@@ -1,0 +1,11 @@
+{
+  "case_id": "style-churn-01",
+  "category": "style_churn",
+  "difficulty": "easy",
+  "judge_reads": "answer",
+  "input_diff": "fixtures/style-churn-01.diff",
+  "expected": { "verdict": "PASS", "risk": "low" },
+  "must_mention": [],
+  "unacceptable": [],
+  "origin": "Invented baseline case: pure whitespace-around-operators formatting change, no logic touched, no tests needed. Establishes the checker recognizes true no-op churn as low risk."
+}

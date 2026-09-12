@@ -1,0 +1,4 @@
+{
+  "_comment": "Project 8 tracking log. Append one entry each time the hold-out set is run (recommended: monthly). Compare hold_out_rate to the same-week tuned-suite rate from evals/results/summary-*.json. A widening gap (tuned rate staying high while hold-out rate drops) is the first warning sign of overfitting to the visible golden set (Concept 11, Goodhart's Law).",
+  "history": []
+}
