@@ -1,0 +1,19 @@
+diff --git a/src/search.py b/src/search.py
+index 2b3c4d5..3c4d5e6 100644
+--- a/src/search.py
++++ b/src/search.py
+@@ -14,7 +14,7 @@ def search_products(query, results):
+-    return sorted(results, key=lambda r: r.relevance)
++    return sorted(results, key=lambda r: (-r.relevance, r.price))
+diff --git a/tests/test_search.py b/tests/test_search.py
+index 4d5e6f7..5e6f7a8 100644
+--- a/tests/test_search.py
++++ b/tests/test_search.py
+@@ -8,4 +8,10 @@ def test_search_orders_by_relevance():
+     assert [r.id for r in results] == ["b", "a"]
++
++
++def test_search_breaks_ties_by_price():
++    results = [Result(id="a", relevance=5, price=20), Result(id="b", relevance=5, price=10)]
++    ordered = search_products("q", results)
++    assert [r.id for r in ordered] == ["b", "a"]

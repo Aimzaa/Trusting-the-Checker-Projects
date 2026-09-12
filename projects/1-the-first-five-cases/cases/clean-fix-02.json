@@ -1,0 +1,11 @@
+{
+  "case_id": "clean-fix-02",
+  "category": "clean_fix",
+  "difficulty": "easy",
+  "judge_reads": "actions",
+  "input_diff": "fixtures/clean-fix-02.diff",
+  "expected": { "verdict": "PASS", "risk": "low" },
+  "must_mention": [],
+  "unacceptable": [],
+  "origin": "Invented baseline case: a null-check bug fix with a regression test added. Same purpose as clean-fix-01, different shape of fix."
+}

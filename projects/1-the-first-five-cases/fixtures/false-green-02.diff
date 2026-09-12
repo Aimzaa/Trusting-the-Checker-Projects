@@ -1,0 +1,17 @@
+diff --git a/src/shipping.py b/src/shipping.py
+index 4c3b2a1..8e7d6c5 100644
+--- a/src/shipping.py
++++ b/src/shipping.py
+@@ -8,7 +8,7 @@ def estimate_days(distance_km, express=False):
+-    base = distance_km / 500
++    base = distance_km / 50
+     if express:
+         return max(1, base / 2)
+     return max(2, base)
+diff --git a/tests/test_shipping.py b/tests/test_shipping.py
+index 2b1c3d4..6a5b4c3 100644
+--- a/tests/test_shipping.py
++++ b/tests/test_shipping.py
+@@ -5,4 +5,4 @@ def test_estimate_days_standard():
+-    assert estimate_days(1000) == 2
++    assert estimate_days(1000) == 20

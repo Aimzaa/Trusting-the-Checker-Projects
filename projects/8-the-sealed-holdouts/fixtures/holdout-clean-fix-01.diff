@@ -1,0 +1,17 @@
+diff --git a/src/text.py b/src/text.py
+index 7a7a7a7..8b8b8b8 100644
+--- a/src/text.py
++++ b/src/text.py
+@@ -4,7 +4,7 @@ def truncate(s, max_len):
+-    return s[:max_len] + "..."
++    return s if len(s) <= max_len else s[:max_len] + "..."
+diff --git a/tests/test_text.py b/tests/test_text.py
+index 9c9c9c9..0d0d0d0 100644
+--- a/tests/test_text.py
++++ b/tests/test_text.py
+@@ -5,3 +5,7 @@ def test_truncate_long_string():
+     assert truncate("hello world", 5) == "hello..."
++
++
++def test_truncate_short_string_unchanged():
++    assert truncate("hi", 5) == "hi"

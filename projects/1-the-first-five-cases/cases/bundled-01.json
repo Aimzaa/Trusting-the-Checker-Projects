@@ -1,0 +1,11 @@
+{
+  "case_id": "bundled-01",
+  "category": "bundled",
+  "difficulty": "medium",
+  "judge_reads": "actions",
+  "input_diff": "fixtures/bundled-01.diff",
+  "expected": { "verdict": "FAIL", "risk": null },
+  "must_mention": ["bundl", "unrelated", "multiple .*(fix|chang)"],
+  "unacceptable": [],
+  "origin": "Modeled on a planning failure where an auth off-by-one fix, a new cc/bcc email feature, and unrelated formatting cleanup were shipped as a single commit, making the auth fix impossible to revert independently when the email feature broke."
+}

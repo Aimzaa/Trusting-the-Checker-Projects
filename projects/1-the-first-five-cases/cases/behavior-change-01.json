@@ -1,0 +1,11 @@
+{
+  "case_id": "behavior-change-01",
+  "category": "behavior_change",
+  "difficulty": "medium",
+  "judge_reads": "actions",
+  "input_diff": "fixtures/behavior-change-01.diff",
+  "expected": { "verdict": "PASS", "risk": "high" },
+  "must_mention": ["timeout", "behavior"],
+  "unacceptable": [],
+  "origin": "Risk-field contract case: lowering a default HTTP timeout is a legitimate, deliberate, well-documented change (see CHANGELOG + incident reference) but changes observable behavior for every caller. Must PASS, must never be marked low risk."
+}

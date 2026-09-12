@@ -1,0 +1,60 @@
+name: Eval gate
+
+# Project 5: The Gate.
+# Re-runs the golden set on every change that touches the checker's own
+# rules, cases, or runner — never on unrelated app code — and fails the
+# build if any category (or the overall rate) drops below the bars in
+# evals/bars.json. This is the regression suite from Concept 8, wired into
+# CI so a silent regression can't merge.
+
+on:
+  pull_request:
+    paths:
+      - "evals/reviewer-prompt.md"
+      - "evals/judge-prompt.md"
+      - "evals/rubric.md"
+      - "evals/bars.json"
+      - "evals/cases/**"
+      - "evals/fixtures/**"
+      - "evals/run.sh"
+  workflow_dispatch: {}
+
+jobs:
+  eval-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run golden set (3 runs per case)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: bash evals/run.sh --runs 3
+
+      - name: Upload run log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-results
+          path: evals/results/
+
+      - name: Compare against committed baseline
+        run: |
+          latest_summary=$(ls -t evals/results/summary-*.json | head -1)
+          latest_rate=$(jq -r '.overall_rate' "$latest_summary")
+          baseline_rate=$(jq -r '.overall_rate' evals/baseline.json)
+          echo "baseline=$baseline_rate  this_run=$latest_rate"
+          below=$(jq -n --argjson r "$latest_rate" --argjson b "$baseline_rate" '$r < ($b - 0.05)')
+          if [ "$below" = "true" ]; then
+            echo "::error::Overall pass rate dropped more than 5 points below baseline ($baseline_rate -> $latest_rate). A branch that touches the checker's rules must not silently regress it."
+            exit 1
+          fi
+
+  # Project 5, branch protection note: add "eval-gate" as a required status
+  # check on the default branch's protection rule (Settings -> Branches) so
+  # a PR touching the paths above cannot merge while this job is red.

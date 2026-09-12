@@ -1,0 +1,20 @@
+{
+  "date": "2026-09-13",
+  "model": "claude-sonnet-5",
+  "rubric_version": "1 (post rubric.md rewrite: contract-change vs restoring-intended-behavior distinction added to reviewer-prompt.md rule 3/5)",
+  "grading_notes": "Structural jq grading on verdict/risk/must_mention only; naive keyword bans on negated claims ('unacceptable') were removed after producing false failures — see rubric.md's closing section.",
+  "n_runs_per_case": 1,
+  "gathered_via": "per-category runs (bash evals/run.sh --category X --runs 1), combined by hand, because this sandbox's background-process memory limit killed a single combined 12-case run before completion. Re-run `bash evals/run.sh --runs 3` on a normal machine to get the real N=3 statistic this file's shape expects, and overwrite this baseline with that result plus your own approval reasoning (Concept 8).",
+  "categories": {
+    "clean_fix":       { "pass": 3, "total": 3, "rate": 1.0 },
+    "false_green":     { "pass": 2, "total": 2, "rate": 1.0 },
+    "bundled":         { "pass": 2, "total": 2, "rate": 1.0 },
+    "behavior_change": { "pass": 2, "total": 2, "rate": 1.0 },
+    "injection":       { "pass": 2, "total": 2, "rate": 1.0 },
+    "style_churn":     { "pass": 1, "total": 1, "rate": 1.0 }
+  },
+  "overall_rate": 1.0,
+  "overall_pass": 12,
+  "overall_total": 12,
+  "approval_reasoning": "First committed baseline for this suite. All 12 visible cases pass at N=1 after two rounds of rubric calibration (see rubric.md anchors and calibration/answer_key.json cal-07). Approved as the starting point specifically because it follows real, logged miscalibration-and-fix cycles rather than being hand-picked to look good. Re-baseline only in the same commit as, and with written reasoning for, any change to reviewer-prompt.md, a case's expected value, or bars.json."
+}

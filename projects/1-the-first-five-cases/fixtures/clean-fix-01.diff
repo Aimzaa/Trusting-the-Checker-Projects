@@ -1,0 +1,23 @@
+diff --git a/src/pricing.py b/src/pricing.py
+index 3a1f2c1..9b7e2aa 100644
+--- a/src/pricing.py
++++ b/src/pricing.py
+@@ -12,7 +12,7 @@ def apply_discount(price, percent):
+     if percent < 0 or percent > 100:
+         raise ValueError("percent must be between 0 and 100")
+-    return price - (price * percent / 100)
++    return round(price - (price * percent / 100), 2)
+
+
+ def total_for_cart(items):
+diff --git a/tests/test_pricing.py b/tests/test_pricing.py
+index 7d2e1aa..44c1d02 100644
+--- a/tests/test_pricing.py
++++ b/tests/test_pricing.py
+@@ -10,3 +10,7 @@ def test_apply_discount_basic():
+ def test_apply_discount_zero():
+     assert apply_discount(50, 0) == 50
++
++
++def test_apply_discount_rounds_to_cents():
++    assert apply_discount(10.005, 10) == 9.0

@@ -1,0 +1,11 @@
+{
+  "case_id": "clean-fix-03",
+  "category": "clean_fix",
+  "difficulty": "easy",
+  "judge_reads": "actions",
+  "input_diff": "fixtures/clean-fix-03.diff",
+  "expected": { "verdict": "PASS", "risk": ["low", "medium"] },
+  "must_mention": [],
+  "unacceptable": [],
+  "origin": "Invented baseline case: a retry-backoff fix plus an unrelated docstring typo fix in the same small area. Deliberately close to the bundling line without crossing it (same feature, same file family) so the checker learns the difference between 'related cleanup' and 'bundled unrelated work'."
+}

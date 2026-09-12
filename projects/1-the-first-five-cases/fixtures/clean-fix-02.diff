@@ -1,0 +1,20 @@
+diff --git a/src/user_lookup.py b/src/user_lookup.py
+index 5f2a11b..8c9d001 100644
+--- a/src/user_lookup.py
++++ b/src/user_lookup.py
+@@ -20,7 +20,10 @@ def get_display_name(user):
+-    return user["profile"]["nickname"] or user["email"]
++    profile = user.get("profile") or {}
++    nickname = profile.get("nickname")
++    return nickname or user["email"]
+diff --git a/tests/test_user_lookup.py b/tests/test_user_lookup.py
+index 1a2b3c4..9f8e7d6 100644
+--- a/tests/test_user_lookup.py
++++ b/tests/test_user_lookup.py
+@@ -8,3 +8,7 @@ def test_get_display_name_uses_nickname():
+     assert get_display_name(user) == "Kay"
++
++
++def test_get_display_name_handles_missing_profile():
++    user = {"email": "a@b.com"}
++    assert get_display_name(user) == "a@b.com"
