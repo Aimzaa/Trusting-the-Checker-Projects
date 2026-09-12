@@ -23,8 +23,12 @@ extract_json() {
   return 1
 }
 
-mapfile -t ITEM_IDS < <(jq -r '.items[].item_id' "$SAMPLE_FILE")
-for _i in "${!ITEM_IDS[@]}"; do ITEM_IDS[$_i]="${ITEM_IDS[$_i]%$'\r'}"; done
+if [[ $# -gt 0 ]]; then
+  ITEM_IDS=("$@")
+else
+  mapfile -t ITEM_IDS < <(jq -r '.items[].item_id' "$SAMPLE_FILE")
+  for _i in "${!ITEM_IDS[@]}"; do ITEM_IDS[$_i]="${ITEM_IDS[$_i]%$'\r'}"; done
+fi
 
 correct_pass=0   # judge=CORRECT, human=CORRECT
 false_fail=0     # judge=INCORRECT, human=CORRECT   (judge too strict)

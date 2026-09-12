@@ -1,4 +1,13 @@
 {
   "_comment": "Project 8 tracking log. Append one entry each time the hold-out set is run (recommended: monthly). Compare hold_out_rate to the same-week tuned-suite rate from evals/results/summary-*.json. A widening gap (tuned rate staying high while hold-out rate drops) is the first warning sign of overfitting to the visible golden set (Concept 11, Goodhart's Law).",
-  "history": []
+  "history": [
+    {
+      "date": "2026-09-13",
+      "holdout_rate": 1.0,
+      "n_holdout_cases": 3,
+      "tuned_rate": 1.0,
+      "n_tuned_runs": 12,
+      "note": "First recorded hold-out run, N=1 per case (not yet N=3). All 3 sealed cases passed, including both hard disguises (weakened-assertion false-green, fake reviewer-config injection) never seen while tuning reviewer-prompt.md. No gap yet — re-check monthly per holdouts/README.md."
+    }
+  ]
 }
